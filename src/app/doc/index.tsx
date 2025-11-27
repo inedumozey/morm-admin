@@ -143,6 +143,7 @@ export default function DocEditor() {
 
       {/* Preview */}
       <div className="w-1/2 p-6 overflow-auto bg-card">
+        <div className="title">{title || "Page Title"}</div>
         <div className="markdown-body">
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkBreaks]}
