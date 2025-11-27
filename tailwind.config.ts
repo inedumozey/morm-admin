@@ -1,5 +1,3 @@
-import { frame } from "framer-motion";
-
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",

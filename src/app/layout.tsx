@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import ProgressProvider from "./ProgressProvider";
 import { Toaster } from "sonner";
 import { api } from "@/services/api";
-import ContextAPI from "./doc/Layout";
+import ContextAPI from "./doc/ContextAPI";
 
 export const metadata: Metadata = {
   title: `Morm`,
