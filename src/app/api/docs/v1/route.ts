@@ -26,6 +26,15 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const { title, content } = await req.json();
+    if (!title) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Title is empty",
+        },
+        { status: 400 }
+      );
+    }
     const data = await mormDocs.insertDoc(title, content);
 
     return NextResponse.json({

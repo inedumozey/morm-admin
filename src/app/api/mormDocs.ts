@@ -68,7 +68,7 @@ export class MormDocs {
     await this.query(`
       CREATE TABLE IF NOT EXISTS docs (
         id SERIAL PRIMARY KEY,
-        title VARCHAR(255) NOT NULL,
+        title VARCHAR(255) UNIQUE NOT NULL ,
         content TEXT,
         is_deleted BOOLEAN DEFAULT FALSE,
         created_at TIMESTAMP DEFAULT NOW(),
