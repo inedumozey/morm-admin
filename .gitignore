@@ -39,6 +39,3 @@ lerna-debug.log*
 package-lock.json
 migrations
 migrations/*
-
-api/*
-api
