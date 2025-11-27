@@ -160,4 +160,17 @@ export class MormDocs {
     await this.disconnect();
     return rows[0];
   }
+
+  /** Users fetch all docs */
+  async fetchDocs() {
+    await this.connect();
+    const res = await this.query(`
+      SELECT * FROM docs
+      WHERE is_deleted = false
+      ORDER BY id ASC;
+    `);
+
+    await this.disconnect();
+    return res.rows;
+  }
 }
