@@ -106,7 +106,7 @@ export default function DocEditor() {
   }, [selected_doc, action_title]);
 
   return (
-    <div className="flex h-screen min-w-[600px] bg-bg">
+    <div className="flex h-screen min-w-[750px] bg-bg">
       {/* Editor */}
       <div className="w-1/2 h-full border-r border-border">
         {/* header */}
