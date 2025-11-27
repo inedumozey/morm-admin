@@ -49,6 +49,7 @@ export default function DocEditor() {
   const [imgAlt, setImgAlt] = useState("");
   const [imgWidth, setImgWidth] = useState("");
   const [imgHeight, setImgHeight] = useState("");
+  const [imgAlignment, setImgAlignment] = useState("left");
 
   const save = async () => {
     set_sending(true);
@@ -60,6 +61,7 @@ export default function DocEditor() {
         setImgUrl("");
         setImgAlt("");
         setImgWidth("");
+        setImgAlignment("");
         setImgHeight("");
       } else if (selected_doc && action_title == "update") {
         await updateDoc(selected_doc.id, title, content);
@@ -76,7 +78,7 @@ export default function DocEditor() {
     // Decide Markdown or HTML based on width/height
     const imgMarkdown =
       imgWidth || imgHeight
-        ? `<img src="${imgUrl}" alt="${imgAlt}"${
+        ? `<img className=${imgAlignment} src="${imgUrl}" alt="${imgAlt}"${
             imgWidth ? ` width="${imgWidth}"` : ""
           }${imgHeight ? ` height="${imgHeight}"` : ""} />`
         : `![${imgAlt}](${imgUrl})`;
