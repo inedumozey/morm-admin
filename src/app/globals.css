@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f0f0f0;
+  --card: #ffffff;
+  --border: #dcdcdc;
+  --text: #000;
+  --text2: #636363;
+  --sec: #f5792e;
+  --sec-faded: #fcd8c2;
+  --pri: #1987cf;
+  --pri-faded: #d5e9f6;
+  --active-nav: #5cb7f38d;
+  --my-chat: #5cb7f3c5;
+  --friend-chat: #ffffff;
+  --red: #e62424;
+  --red-faded: #eb48483f;
+  --green: #45a206;
+  --green-faded: #a0ed6d42;
+  --yellow: #c77026;
+  --yellow-faded: #efc90d60;
+  --white: #ffffff;
+  --from: #f9fafb;
+  --to: #ffffff;
+}
+
+* {
+  @apply tracking-wide;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-pri-faded;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.markdown-body {
+  font-family: system-ui, sans-serif;
+  line-height: 1.7;
+  color: #111;
+  padding: 1rem;
+  @apply text-[0.9rem];
+}
+
+.title {
+  @apply md:text-[2rem] text-[1.5rem] text-pri mb-4 font-extrabold uppercase;
+}
+/* Headings */
+.markdown-body h1 {
+  font-weight: bold;
+  margin-top: 1rem;
+  @apply md:text-[2rem] text-[1.5rem];
+}
+.markdown-body h2 {
+  font-weight: bold;
+  margin-top: 1rem;
+  @apply md:text-[1.5rem] text-[1.2rem];
+}
+.markdown-body h3 {
+  @apply md:text-[1.2rem] text-[1rem];
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.markdown-body img {
+  max-width: 400px; /* or 50% */
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin: 10px auto;
+}
+
+/* Lists */
+.markdown-body ul {
+  padding-left: 1.5rem;
+  list-style: disc;
+}
+.markdown-body li {
+  margin-bottom: 4px;
+}
+
+/* Code blocks */
+.markdown-body pre {
+  background: transparent;
+  color: white;
+  padding: 0;
+  border-radius: 6px;
+  overflow-x: auto;
+  @apply shadow-lg;
+}
+.markdown-body code {
+  background: #eee;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+/* Tables */
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+.markdown-body table,
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
