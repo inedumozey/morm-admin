@@ -15,16 +15,16 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const profile_data = { error: "", data: [] };
+  const doc_data = { error: "", data: [] };
   try {
-    // const { data } = await api.get("/");
-    // profile_data.data = data.data;
+    const { data } = await api.get("/");
+    doc_data.data = data.data;
   } catch (err: any) {
-    // if (err.response) {
-    //   profile_data.error = err.response.data.message;
-    // } else {
-    //   profile_data.error = err.message;
-    // }
+    if (err.response) {
+      doc_data.error = err.response.data.message;
+    } else {
+      doc_data.error = err.message;
+    }
   }
 
   return (
@@ -33,7 +33,7 @@ export default async function RootLayout({
       <body className="font-sans">
         <Toaster closeButton duration={8000} richColors />
         <ProgressProvider />
-        <ContextAPI profile_data={profile_data}>{children}</ContextAPI>
+        <ContextAPI doc_data={doc_data}>{children}</ContextAPI>
       </body>
     </html>
   );

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { MormDocs } from "../../../../mormDocs";
+const mormDocs = new MormDocs();
 
 export async function DELETE(
   req: Request,
@@ -7,6 +8,7 @@ export async function DELETE(
 ) {
   try {
     const { id } = params;
+    await mormDocs.deleteDoc(id);
     return NextResponse.json({
       success: true,
       message: "Deleted successfully",
@@ -28,10 +30,29 @@ export async function PUT(
 ) {
   try {
     const { id } = params;
-    return NextResponse.json({
-      success: true,
-      message: "Hidden successfully",
-    });
+    let res = await mormDocs.getDoc(id);
+    if (res) {
+      if (res.is_deleted) {
+        // unhide it
+        res = await mormDocs.softDeleteDoc(id, false);
+      } else {
+        // hide it
+        res = await mormDocs.softDeleteDoc(id, true);
+      }
+      return NextResponse.json({
+        success: true,
+        message: "successfully",
+        data: res,
+      });
+    } else {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Documentation not found",
+        },
+        { status: 404 }
+      );
+    }
   } catch (error: any) {
     return NextResponse.json(
       {

@@ -99,50 +99,32 @@ export class MormDocs {
     return res.rows;
   }
 
+  async getDoc(id: string) {
+    await this.connect();
+    const res = await this.query(
+      `SELECT * FROM docs WHERE id=$1 ORDER BY id ASC;`,
+      [id]
+    );
+    await this.disconnect();
+    return res.rows[0];
+  }
+
   /** Soft-delete a doc */
-  async softDeleteDoc(id: string) {
+  async softDeleteDoc(id: string, action: boolean) {
     await this.connect();
     const { rows } = await this.query(
-      `UPDATE docs SET is_deleted = TRUE, updated_at = NOW() WHERE id = $1 RETURNING *;`,
-      [id]
+      `UPDATE docs SET is_deleted = $1, updated_at = NOW() WHERE id = $2 RETURNING *;`,
+      [action, id]
     );
     await this.disconnect();
     return rows[0];
   }
 
-  /** Update a doc */
-  async updateDfoc(id: string, title?: string, content?: string) {
+  /** delete a doc */
+  async deleteDoc(id: string) {
     await this.connect();
-
-    const updates: string[] = [];
-    const values: any[] = [];
-    let index = 1;
-
-    if (title !== undefined) {
-      updates.push(`title = $${index}`);
-      values.push(title);
-      index++;
-    }
-    if (content !== undefined) {
-      updates.push(`content = $${index}`);
-      values.push(content);
-      index++;
-    }
-    if (updates.length === 0) {
-      await this.disconnect();
-      return;
-    }
-
-    // Always update timestamps
-    updates.push(`updated_at = NOW()`);
-    updates.push(`last_modified = NOW()`);
-
-    const sql = `UPDATE docs SET ${updates.join(", ")} WHERE id = $${index}`;
-    values.push(id);
-
-    const { rows } = await this.query(sql, values);
+    await this.query(`DELETE FROM docs WHERE id = $1`, [id]);
     await this.disconnect();
-    return rows[0];
   }
 
   async updateDoc(id: string, fields: Record<string, any>) {

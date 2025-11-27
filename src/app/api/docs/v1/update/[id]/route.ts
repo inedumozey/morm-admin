@@ -10,11 +10,23 @@ export async function PUT(
     const { id } = params;
     const { title, content } = await req.json();
 
-    await mormDocs.updateDoc(id, { title, content });
-    return NextResponse.json({
-      success: true,
-      message: "Updated successfully",
-    });
+    let res = await mormDocs.getDoc(id);
+    if (res) {
+      const data = await mormDocs.updateDoc(id, { title, content });
+      return NextResponse.json({
+        success: true,
+        message: "Updated successfully",
+        data,
+      });
+    } else {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Documentation not found",
+        },
+        { status: 404 }
+      );
+    }
   } catch (error: any) {
     return NextResponse.json(
       {

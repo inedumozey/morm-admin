@@ -12,17 +12,17 @@ import React, {
 const AppContext = createContext<any>({});
 
 export default function ContextAPI({
-  profile_data,
+  doc_data,
   children,
 }: {
-  profile_data: any;
+  doc_data: any;
   children: ReactNode;
 }) {
-  const [profile, set_profile] = useState(profile_data?.data);
-  const [error, set_error] = useState(profile_data?.error);
+  const [all_docs, set_all_docs] = useState(doc_data?.data);
+  const [error, set_error] = useState(doc_data?.error);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const data = { profile };
+  const data = { all_docs };
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function ContextAPI({
   ) : (
     <div>
       <AppContext.Provider value={data}>
-        <Layout profile={profile}>{children}</Layout>
+        <Layout all_docs={all_docs}>{children}</Layout>
       </AppContext.Provider>
     </div>
   );
@@ -48,7 +48,7 @@ export default function ContextAPI({
 function ErrorMsg({ msg }: { msg: string }) {
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center">
-      <div className="animate-bounce bg-red-faded text-red rounded-md px-[10px] text-xl">
+      <div className="animate-bounce text-center bg-red-faded text-red rounded-md px-[10px] text-xl">
         {msg || "Unknown error occurred"}
       </div>
       <div className="text-center my-[10px]">
@@ -58,7 +58,7 @@ function ErrorMsg({ msg }: { msg: string }) {
   );
 }
 
-function Layout({ children }: { profile: any; children: React.ReactNode }) {
+function Layout({ children }: { all_docs: any; children: React.ReactNode }) {
   return <>{children}</>;
 }
 

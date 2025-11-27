@@ -29,7 +29,7 @@ export function useDocs() {
 
   const updateDoc = async (id: string, title: string, content: string) => {
     try {
-      const { data } = await api.put(`/docs/${id}`, { title, content });
+      const { data } = await api.put(`/update/${id}`, { title, content });
       toast.success(data.message);
       setDocs((prev) => prev.map((n) => (n.id === id ? data.data : n)));
     } catch (err: any) {
@@ -39,7 +39,7 @@ export function useDocs() {
   };
 
   const deleteDoc = async (id: string) => {
-    const { data } = await api.delete(`/docs/delete/${id}`);
+    const { data } = await api.delete(`/delete/${id}`);
     setDocs((prev) => prev.filter((n) => n.id !== id));
     toast.success(data.message);
     try {
@@ -51,9 +51,9 @@ export function useDocs() {
 
   const softDeleteDoc = async (id: string) => {
     try {
-      const { data } = await api.put(`/docs/delete/${id}`, {});
-      toast.success(data.message);
+      const { data } = await api.put(`/delete/${id}`, {});
       setDocs((prev) => prev.map((n) => (n.id === id ? data.data : n)));
+      toast.success(data.message);
     } catch (err: any) {
       if (err.response) toast.error(err.response.data.message);
       else toast.error(err.message);
