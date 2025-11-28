@@ -14,7 +14,7 @@ export class MormDocs {
   private async connect(dbUrl?: string) {
     this.client = new Client({
       connectionString: dbUrl || this.databaseUrl,
-      ssl: { rejectUnauthorized: false },
+      // ssl: { rejectUnauthorized: false },
     });
     await this.client.connect();
   }
@@ -164,12 +164,9 @@ export class MormDocs {
   /** Users fetch all docs */
   async fetchDocs() {
     await this.connect();
-    const res = await this.query(`
-      SELECT * FROM docs
-      WHERE is_deleted = false
-      ORDER BY id ASC;
-    `);
-
+    const res = await this.query(
+      `SELECT * FROM docs WHERE is_deleted=false ORDER BY id ASC;`
+    );
     await this.disconnect();
     return res.rows;
   }
