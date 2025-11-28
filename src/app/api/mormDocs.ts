@@ -99,6 +99,13 @@ export class MormDocs {
     return res.rows;
   }
 
+  async getAllDocs() {
+    await this.connect();
+    const res = await this.query(`SELECT * FROM docs ORDER BY id ASC;`);
+    await this.disconnect();
+    return res.rows;
+  }
+
   async getDoc(id: string) {
     await this.connect();
     const res = await this.query(
