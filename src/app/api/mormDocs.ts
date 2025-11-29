@@ -12,9 +12,15 @@ export class MormDocs {
 
   /** Connect to a database */
   private async connect(dbUrl?: string) {
+    const url = new URL(dbUrl || this.databaseUrl);
+    const isLocal =
+      url.hostname === "localhost" ||
+      url.hostname === "127.0.0.1" ||
+      url.hostname === "::1";
+
     this.client = new Client({
       connectionString: dbUrl || this.databaseUrl,
-      ssl: { rejectUnauthorized: true },
+      ssl: isLocal ? false : { rejectUnauthorized: false },
     });
     await this.client.connect();
   }
