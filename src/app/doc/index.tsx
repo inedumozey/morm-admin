@@ -7,12 +7,12 @@ import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import { useDocs } from "@/hooks/useDocs";
 import remarkBreaks from "remark-breaks";
-import { FaSearch } from "react-icons/fa";
 import rehypeRaw from "rehype-raw";
 import "highlight.js/styles/github.css";
 import { MdDelete, MdAddBox } from "react-icons/md";
 import { BiHide } from "react-icons/bi";
 import { FiEdit3 } from "react-icons/fi";
+import MarkdonPreview from "../components/MarkdonPreview";
 
 const imgInput = `p-[4px] block w-full rounded-md outline-none focus:border-pri focus:border-[2px] border-border border-[1px]`;
 
@@ -56,16 +56,17 @@ export default function DocEditor() {
     set_sending(true);
     try {
       if (!selected_doc && action_title == "new") {
-        await createDoc(title, content);
-        if (!error) {
-          set_title("");
-          set_content("");
-          setImgUrl("");
-          setImgAlt("");
-          setImgWidth("");
-          setImgAlignment("");
-          setImgHeight("");
-        }
+        await createDoc(title, content, (err) => {
+          if (!err) {
+            set_title("");
+            set_content("");
+            setImgUrl("");
+            setImgAlt("");
+            setImgWidth("");
+            setImgAlignment("");
+            setImgHeight("");
+          }
+        });
       } else if (selected_doc && action_title == "update") {
         await updateDoc(selected_doc.id, title, content);
       }
@@ -296,14 +297,7 @@ export default function DocEditor() {
       {/* Preview */}
       <div className="w-1/2 overflow-auto bg-card">
         <div className="title p-4">{title || "Page Title"}</div>
-        <div className="markdown-body">
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm, remarkBreaks]}
-            rehypePlugins={[rehypeHighlight, rehypeRaw]}
-          >
-            {content}
-          </ReactMarkdown>
-        </div>
+        <MarkdonPreview content={content} />
       </div>
     </div>
   );

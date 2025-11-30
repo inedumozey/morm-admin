@@ -32,82 +32,15 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  @apply bg-pri-faded;
+  @apply bg-bg;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-.markdown-body {
-  font-family: system-ui, sans-serif;
-  line-height: 1.7;
-  color: #111;
-  padding: 1rem;
-  @apply text-[0.9rem];
-}
+@import "github-markdown-css";
 
 .title {
   @apply md:text-[2rem] text-[1.5rem] text-pri mb-4 font-extrabold uppercase;
-}
-/* Headings */
-.markdown-body h1 {
-  font-weight: bold;
-  margin-top: 1rem;
-  @apply md:text-[2rem] text-[1.5rem];
-}
-.markdown-body h2 {
-  font-weight: bold;
-  margin-top: 1rem;
-  @apply md:text-[1.5rem] text-[1.2rem];
-}
-.markdown-body h3 {
-  @apply md:text-[1.2rem] text-[1rem];
-  font-weight: bold;
-  margin-top: 1rem;
-}
-
-.markdown-body img {
-  max-width: 400px; /* or 50% */
-  height: auto;
-  border-radius: 6px;
-  display: block;
-  margin: 10px auto;
-}
-
-/* Lists */
-.markdown-body ul {
-  padding-left: 1.5rem;
-  list-style: disc;
-}
-.markdown-body li {
-  margin-bottom: 4px;
-}
-
-/* Code blocks */
-.markdown-body pre {
-  background: transparent;
-  color: white;
-  padding: 0;
-  border-radius: 6px;
-  overflow-x: auto;
-  @apply shadow-lg;
-}
-.markdown-body code {
-  background: #eee;
-  padding: 2px 4px;
-  border-radius: 4px;
-}
-
-/* Tables */
-.markdown-body table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-.markdown-body table,
-th,
-td {
-  border: 1px solid #ccc;
-  padding: 8px;
 }
