@@ -22,7 +22,8 @@ export default function DocEditor() {
   const [sending, set_sending] = useState(false);
   const [deleting, set_deleting] = useState(false);
   const [action_title, set_action_title] = useState("new");
-  const { createDoc, docs, updateDoc, softDeleteDoc, deleteDoc } = useDocs();
+  const { createDoc, docs, updateDoc, softDeleteDoc, deleteDoc, error } =
+    useDocs();
   const [selected_doc, set_selected_doc] = useState<any>(null);
 
   const actionsTabs = [
@@ -56,13 +57,15 @@ export default function DocEditor() {
     try {
       if (!selected_doc && action_title == "new") {
         await createDoc(title, content);
-        set_title("");
-        set_content("");
-        setImgUrl("");
-        setImgAlt("");
-        setImgWidth("");
-        setImgAlignment("");
-        setImgHeight("");
+        if (!error) {
+          set_title("");
+          set_content("");
+          setImgUrl("");
+          setImgAlt("");
+          setImgWidth("");
+          setImgAlignment("");
+          setImgHeight("");
+        }
       } else if (selected_doc && action_title == "update") {
         await updateDoc(selected_doc.id, title, content);
       }
